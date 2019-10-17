@@ -1,0 +1,4 @@
+ 
+Pueden descargarse datos para pruebas desde:
+
+http://downloads.gvsig.org/download/geodata/vector/SIGPAC/
