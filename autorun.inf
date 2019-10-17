@@ -1,0 +1,12 @@
+[Script]
+enable = false
+main = main
+Lang = python
+
+[Unit]
+type = Script
+name = autorun
+description = 
+createdBy = 
+version = 
+

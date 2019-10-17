@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!--
+
+    gvSIG. Desktop Geographic Information System.
+
+    Copyright (C) 2007-2013 gvSIG Association.
+
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 3
+    of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+    MA  02110-1301, USA.
+
+    For any additional information, do not hesitate to contact us
+    at info AT gvsig.com, or visit our website www.gvsig.com.
+
+-->
+<definitions>
+  <version>1.0.0</version>
+  <classes>
+        <class namespace="dal" name="SimpleReader">
+            <extends>
+                <class namespace="dal" name="ProviderParameters"/>
+            </extends>
+            <description>Store the base parameters need for the SimpleReader</description>
+            <fields>
+                <field name="file" label="File" type="file" order="10" mandatory="true">
+                    <description>file</description>
+                </field>
+                <field name="locale" label="Locale" type="string" order="20" mandatory="true" defaultValue="DEFAULT">
+                    <description>Locale used to parse double and float values (BCP47 language tag representing the locale)</description>
+                    <availableValues>
+                        <value label="Default (use system locale)">DEFAULT</value>
+                        <value label="Canada (english)">en-CA</value>
+                        <value label="Canada (french)">fr-CA</value>
+                        <value label="Chinese">zh</value>
+                        <value label="English">en</value>
+                        <value label="French">fr</value>
+                        <value label="German">de</value>
+                        <value label="Italian">it</value>
+                        <value label="Japanese">ja</value>
+                        <value label="Korea">ko</value>
+                        <value label="Spain">es</value>
+                        <value label="Uk">en-GB</value>
+                        <value label="Us">en-US</value>
+                    </availableValues>          
+                </field>
+                <field name="automaticTypesDetection" label="Automatic types detection" type="boolean" order="30" mandatory="false" defaultValue="false">
+                    <description>This flag activate the autodetection of types. Can be slow.</description>
+                </field>
+                <field name="pointFields" label="Point fields" type="string" order="40" mandatory="false" defaultValue="" >
+                    <description>This field allow to add a Geometry column to the table. It is a list of field names separated by commas used as dimensions for the attribute GEOM of type point to add to the table.</description>
+                </field>
+                <field name="CRS" type="crs" order="50" mandatory="false">
+                    <description>The coordinate reference system used when use the point parameter to generate a layer</description>
+                </field>
+                <field name="geoemtryFieldName" label="Geometry field name" type="string" mandatory="false" defaultValue="the_geom" group="Advanced">
+                    <description>Name os the field used to store the point if a 'point fields' are specified</description>
+                </field>
+                <field name="fieldNames" label="Field names" type="string" mandatory="false" defaultValue="" group="Advanced">
+                    <description>Comma separated list of field names or empty if parsed automatically</description>
+                </field>
+                <field name="fieldtypes" label="Field types" type="string" mandatory="false" defaultValue="" group="Advanced">
+                    <description>Comma separated list of field types. If empty strings are assumed (Eg: integer,string,double,boolean,float,geometry).</description>
+                </field>
+                <field name="ignoreErrors" label="Ignore errors" type="boolean" mandatory="false" defaultValue="false" group="Advanced">
+                    <description>Set to true to ignore errors during load of data.</description>
+                </field>
+            </fields>
+      
+        </class>
+        
+        <class name="SIGPACDECL">
+      <extends>
+        <class namespace="dal" name="SimpleReader"/>
+      </extends>
+      <tags>
+          <value name="defaultGroup" value="Basic"/>
+      </tags>
+      <description>Store the parameters need to open a SIGPACDECL file</description>
+      <fields>
+        <field name="file" label="file" type="file" mandatory="true">
+          <description>Fichero SIGPAC de declaracion</description>
+        </field>
+        <field hidden="true" name="locale" label="Locale" type="string" order="20" mandatory="true" defaultValue="DEFAULT">
+          <description>Locale used to parse double and float values (BCP47 language tag representing the locale)</description>
+          <availableValues>
+            <value label="Default (use system locale)">DEFAULT</value>
+            <value label="Canada (english)">en-CA</value>
+            <value label="Canada (french)">fr-CA</value>
+            <value label="Chinese">zh</value>
+            <value label="English">en</value>
+            <value label="French">fr</value>
+            <value label="German">de</value>
+            <value label="Italian">it</value>
+            <value label="Japanese">ja</value>
+            <value label="Korea">ko</value>
+            <value label="Spain">es</value>
+            <value label="Uk">en-GB</value>
+            <value label="Us">en-US</value>
+          </availableValues>          
+        </field>
+        <field hidden="true" name="automaticTypesDetection" label="Automatic types detection" type="boolean" order="30" mandatory="false" defaultValue="false">
+          <description>This flag activate the autodetection of types. Can be slow.</description>
+        </field>
+        <field hidden="true" name="pointFields" label="Point fields" type="string" order="40" mandatory="false" defaultValue="" >
+          <description>This field allow to add a Geometry column to the table. It is a list of field names separated by commas used as dimensions for the attribute GEOM of type point to add to the table.</description>
+        </field>
+        <field name="CRS" type="crs" order="50" mandatory="false">
+          <description>The coordinate reference system used when use the point parameter to generate a layer</description>
+        </field>
+        <field hidden="true" name="geoemtryFieldName" label="Geometry field name" type="string" mandatory="false" defaultValue="the_geom" group="Advanced">
+          <description>Name os the field used to store the point if a 'point fields' are specified</description>
+        </field>
+        <field hidden="true" name="fieldNames" label="Field names" type="string" mandatory="false" defaultValue="" group="Advanced">
+          <description>Comma separated list of field names or empty if parsed automatically</description>
+        </field>
+        <field hidden="true" name="fieldtypes" label="Field types" type="string" mandatory="false" defaultValue="" group="Advanced">
+          <description>Comma separated list of field types. If empty strings are assumed (Eg: integer,string,double,boolean,float,geometry).</description>
+        </field>
+        <field name="ignoreErrors" label="Ignore errors" type="boolean" mandatory="false" defaultValue="true">
+          <description>Set to true to ignore errors during load of data.</description>
+        </field>
+      </fields>
+    </class>
+
+
+  </classes>
+</definitions>
