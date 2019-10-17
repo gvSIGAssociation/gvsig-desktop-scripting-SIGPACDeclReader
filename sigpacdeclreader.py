@@ -11,7 +11,7 @@ from java.net import URL
 from java.io import File
 
 from org.gvsig.fmap.dal.feature.spi.simpleprovider import AbstractSimpleSequentialReaderFactory
-from org.gvsig.fmap.dal.feature.spi.simpleprovider import SimpleSequentialReader
+from org.gvsig.fmap.dal.feature.spi.simpleprovider import AbstractSimpleSequentialReader
 
 from sigpacdeclparser import SIGPACDeclaracionParser
 
@@ -32,7 +32,7 @@ class SIGPACDeclaracionReaderFactory(AbstractSimpleSequentialReaderFactory):
     f.close()
     head = head.lower()
     head = head.replace("\r","").replace("\n"," ")
-    #print pathname, repr(head)
+    #print·​pathname,​·​repr(head)​
     return ("<declaracion>" in head) and ("<declarante" in head) and ("<linea_declaracion>" in head)
 
   def fetchDefaultParameters(self, params):
@@ -65,9 +65,10 @@ class SIGPACDeclaracionReaderFactory(AbstractSimpleSequentialReaderFactory):
     reader = SIGPACDeclaracionReader(self, params)
     return reader
   
-class SIGPACDeclaracionReader(SimpleSequentialReader):
+class SIGPACDeclaracionReader(AbstractSimpleSequentialReader):
 
   def __init__(self, factory, parameters):
+    AbstractSimpleSequentialReader.__init__(self, factory, parameters)
     self._factory = factory
     self._parameters = parameters
     self._parser = None
@@ -165,5 +166,6 @@ def test(factory, fname):
 def main(*args):
   selfRegister()
   #test(SIGPACDeclaracionReaderFactory(), "/home/jjdelcerro/datos/geodata/vector/sigpac/2018/Declaracion3.xml")
-  test(SIGPACDeclaracionReaderFactory(), "/home/jjdelcerro/datos/geodata/vector/sigpac/2018/ALS_20180413142453-CroquisAlegado.xml")
+  #sigpacpath = "/ALS_20180413142453-CroquisAlegado.xml"
+  test(SIGPACDeclaracionReaderFactory(), sigpacpath)
   
