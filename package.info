@@ -1,0 +1,21 @@
+#
+#Tue Oct 22 16:03:44 CEST 2019
+owner=gvSIG Association
+code=SIGPACDeclReader
+java-version=j1_7
+official=true
+type=Script
+version=1.0.0-1
+state=testing
+operating-system=all
+dependencies=
+sources-url=https\://github.com/gvSIGAssociation/gvsig-desktop-scripting-SIGPACDeclReader
+web-url=
+architecture=all
+model-version=1.0.1
+categories=
+description=
+owner-url=
+buildNumber=1
+gvSIG-version=2.5.0
+name=SIGPAC Lector de declaraciones
