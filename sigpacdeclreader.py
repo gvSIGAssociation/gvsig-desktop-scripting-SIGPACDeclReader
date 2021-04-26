@@ -109,7 +109,7 @@ class SIGPACDeclaracionReader(AbstractSimpleSequentialReader):
       "FC_PISTACH:DOUBLE",
       "DN_SURFACE:DOUBLE",
       "FC_TOTAL:DOUBLE",
-      "GEOMETRY:MultiPolygon:geomSubtype:2D"
+      "GEOMETRY:Geometry:set:geomtype=multipolygon@2D"
     ]
     return fields
   
