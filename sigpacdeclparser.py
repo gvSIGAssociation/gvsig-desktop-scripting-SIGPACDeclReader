@@ -35,7 +35,7 @@ class SIGPACDeclaracionParser(object):
     fileXml = open(self.fname,"r")
     data = fileXml.read()
     fileXml.close()
-    self.xml = xmltodic.parse(data)
+    self.xml = xmltodic.parse(data, encoding="ISO-8859-15")
     
     srid = self.getSRId()
     if srid != None:
@@ -48,6 +48,7 @@ class SIGPACDeclaracionParser(object):
       self._CIF_NIF = null2empty(declarante.get("CIF_NIF",None))
     
     self.lineas = self.getLineas()
+    #print "Total lineas %s" % len(self.lineas)
 
     self.rewind()
 
@@ -70,19 +71,26 @@ class SIGPACDeclaracionParser(object):
     lineas = self.getLineas()
     if self.lineaCorriente >= len(lineas):
       return None
+    #print "Linea %s" % self.lineaCorriente
     linea = lineas[self.lineaCorriente]
     ID_ALE = null2zero(linea.get("ID_ALE", None))
     wkt = linea.get("WKT",None)
-    if "EMPTY" in wkt:
-      ScriptingUtils.log(ScriptingUtils.WARN, "La geometria no es valida (ID_ALE=%s), el poligono esta vacio" % (ID_ALE))
+    if wkt == None:
+      ScriptingUtils.log(ScriptingUtils.WARN, "[%d] La geometria no es valida (ID_ALE=%s), no localizado el campo geometria" % (self.lineaCorriente, ID_ALE))
       geom = None
-    elif wkt != None:
+    elif "EMPTY" in wkt:
+      ScriptingUtils.log(ScriptingUtils.WARN, "[%d] La geometria no es valida (ID_ALE=%s), el poligono esta vacio" % (self.lineaCorriente, ID_ALE))
+      geom = None
+    else:
       geom = GeometryUtils.createFrom(wkt, self.srs)
-      if not geom.isValid():
-        #status = geom.getValidationStatus()
-        msg = ""#status.getMessage()
-        ScriptingUtils.log(ScriptingUtils.WARN, "La geometria no es valida (ID_ALE=%s), %s" % (ID_ALE, msg))
-        geom = None
+      if geom == None:
+        ScriptingUtils.log(ScriptingUtils.WARN, "[%d] La geometria no es valida (ID_ALE=%s), WKT incorrecto (%s)" % (self.lineaCorriente, ID_ALE, wkt[:70]))
+      #  geom = None
+      #elif not geom.isValid():
+      #  #status = geom.getValidationStatus()
+      #  msg = ""#status.getMessage()
+      #  ScriptingUtils.log(ScriptingUtils.WARN, "[%d] La geometria no es valida (ID_ALE=%s), %s" % (self.lineaCorriente, ID_ALE, msg))
+      #  geom = None
         
     if geom!=None and not isinstance(geom,MultiPolygon):
       geom = geom.toPolygons()
@@ -118,6 +126,7 @@ class SIGPACDeclaracionParser(object):
       null2zero(linea.get("DN_SURFACE", None)),
       geom
     ]
+    #print "Linea %s: %s" % (self.lineaCorriente,values)
     self.next()
     return values
 
